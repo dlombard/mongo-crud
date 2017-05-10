@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Col, Row, FieldGroup, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Well, Button } from 'react-bootstrap'
+import { Grid, Col, Row, FieldGroup, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button, Panel } from 'react-bootstrap'
 
 class Main extends React.Component {
 
@@ -9,7 +9,9 @@ class Main extends React.Component {
     this.state = {
       doc: '',
       name: 'name',
-      comment: 'my comment'
+      comment: 'my comment',
+      curl: '',
+      url: 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/591310a5e37e6b0bfbad7bb0?secret=SECRET'
     }
   }
 
@@ -21,21 +23,15 @@ class Main extends React.Component {
     this.setState(obj)
   }
 
-  onChangeComment = (e) => {
-    e.preventDefault()
-    this.setState({
-      comment: e.target.value
-    })
-  }
   submit = (e) => {
     e.preventDefault();
     const payload = {
       name: this.state.name,
       comment: this.state.comment
     };
-    const url = 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/591310a5e37e6b0bfbad7bb0?secret=SECRET'
 
-    fetch(url, {
+
+    fetch(this.state.url, {
       method: 'POST',
       mode: 'cors',
       redirect: 'follow',
@@ -49,7 +45,8 @@ class Main extends React.Component {
     }).
       then((json) => {
         this.setState({
-          doc: JSON.stringify(json)
+          doc: json,
+          curl: `curl -XPOST -H "Content-type: application/json" -d ${JSON.stringify(payload)} ${this.state.url}`
         })
       }).
       catch((err) => {
@@ -94,9 +91,25 @@ class Main extends React.Component {
             </Form>
           </Col>
           <Col md={6}>
-            <Well>
-              {this.state.doc}
-            </Well>
+            <Row>
+              <Col>
+                <h4>
+                  Curl command generated
+                  </h4>
+                <Panel>
+                  {this.state.curl}
+                </Panel>
+              </Col>
+              <Col>
+                <h4>
+                  Inserted Document
+                  </h4>
+
+                <pre>
+                  {JSON.stringify(this.state.doc, null, 2)}
+                </pre>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Grid>
