@@ -1,0 +1,38 @@
+{
+  "name": "baas-try-now",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack && node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "body-parser": "^1.17.1",
+    "bootstrap": "^3.3.7",
+    "compression": "^1.6.2",
+    "ejs": "^2.5.6",
+    "express": "^4.15.2",
+    "if-env": "^1.0.0",
+    "install": "^0.10.1",
+    "npm": "^4.5.0",
+    "react": "^15.5.4",
+    "react-bootstrap": "^0.31.0",
+    "react-dom": "^15.5.4",
+    "react-router": "^4.1.1",
+    "serve-favicon": "^2.4.2"
+  },
+  "devDependencies": {
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-react-constant-elements": "^6.23.0",
+    "babel-plugin-transform-react-inline-elements": "^6.22.0",
+    "webpack": "^2.5.1"
+  }
+}
