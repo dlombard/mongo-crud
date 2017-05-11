@@ -17202,8 +17202,7 @@ var Delete = function (_React$Component) {
     _this.submit = function (e) {
       e.preventDefault();
       var payload = {
-        id: { '$oid': _this.state.id },
-        comment: _this.state.comment
+        id: { '$oid': _this.state.id }
       };
 
       fetch(_this.state.url, {
@@ -17221,7 +17220,7 @@ var Delete = function (_React$Component) {
         _this.setState({
           doc: json,
           curl: 'curl -XPOST -H "Content-type: application/json" -d \'' + JSON.stringify(payload) + '\' ' + _this.state.url,
-          node: 'client.anonymousAuth().then(() => {\n    db.collection(\'trymongo\').update({id: {\'$oid\': \'' + _this.state.id + '\'});\n  })'
+          node: 'client.anonymousAuth().then(() => {\n    db.collection(\'trymongo\').deleteOne({id: {\'$oid\': \'' + _this.state.id + '\'});\n  })'
         });
       }).catch(function (err) {
         console.error(err);

@@ -33,8 +33,7 @@ class Delete extends React.Component {
   submit = (e) => {
     e.preventDefault();
     const payload = {
-      id: { '$oid': this.state.id },
-      comment: this.state.comment,
+      id: { '$oid': this.state.id }
     };
 
 
@@ -55,7 +54,7 @@ class Delete extends React.Component {
           doc: json,
           curl: `curl -XPOST -H "Content-type: application/json" -d '${JSON.stringify(payload)}' ${this.state.url}`,
           node: `client.anonymousAuth().then(() => {
-    db.collection('trymongo').update({id: {'$oid': '${this.state.id}'});
+    db.collection('trymongo').deleteOne({id: {'$oid': '${this.state.id}'});
   })`
         })
       }).
