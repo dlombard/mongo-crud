@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Col, Row, FieldGroup, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button, Panel } from 'react-bootstrap'
+import { Grid, Col, Row, FieldGroup, Form, FormGroup, ControlLabel, FormControl, Button, Panel, PageHeader } from 'react-bootstrap'
 
 class Main extends React.Component {
 
@@ -11,7 +11,8 @@ class Main extends React.Component {
       name: 'name',
       comment: 'my comment',
       curl: '',
-      url: 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/591310a5e37e6b0bfbad7bb0?secret=SECRET'
+      url: 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/591310a5e37e6b0bfbad7bb0?secret=SECRET',
+      node: ''
     }
   }
 
@@ -46,7 +47,10 @@ class Main extends React.Component {
       then((json) => {
         this.setState({
           doc: json,
-          curl: `curl -XPOST -H "Content-type: application/json" -d ${JSON.stringify(payload)} ${this.state.url}`
+          curl: `curl -XPOST -H "Content-type: application/json" -d '${JSON.stringify(payload)}' '${this.state.url}'`,
+          node: `client.anonymousAuth().then(() => {
+    db.collection('trymongo').insert({name: '${this.state.name}', comment:'${this.state.comment}'});
+  })`
         })
       }).
       catch((err) => {
@@ -56,6 +60,9 @@ class Main extends React.Component {
   render() {
     return (
       <Grid>
+        <Row>
+          <PageHeader><small style={style.stitch}>Insert</small></PageHeader>
+        </Row>
         <Row>
           <Col md={6}>
             <Form onSubmit={this.submit}>
@@ -85,7 +92,7 @@ class Main extends React.Component {
                 />
                 <FormControl.Feedback />
               </FormGroup>
-              <Button type='submit'>
+              <Button type='submit' style={style.stitch}>
                 Submit
               </Button>
             </Form>
@@ -97,7 +104,19 @@ class Main extends React.Component {
                   Curl command generated
                   </h4>
                 <Panel>
-                  {this.state.curl}
+                  <p>
+                    <strong>curl:</strong>
+                  </p>
+                  <pre><code>
+                    {this.state.curl}
+                  </code></pre>
+                  <br />
+                  <p>
+                    <strong>node command:</strong>
+                  </p>
+                  <pre><code>
+                    {this.state.node}
+                  </code></pre>
                 </Panel>
               </Col>
               <Col>
@@ -112,9 +131,14 @@ class Main extends React.Component {
             </Row>
           </Col>
         </Row>
-      </Grid>
+      </Grid >
     )
   }
 }
 
+const style = {
+  stitch: {
+    color: '#4ca84a'
+  }
+}
 export default Main; 

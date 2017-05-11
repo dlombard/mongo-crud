@@ -3,11 +3,11 @@ var path = require('path')
 var bodyParser = require('body-parser')
 var favicon = require('serve-favicon')
 const baas = require("baas")
-//var routes = require("./server/routes")
+var routes = require("./server/routes")
 var app = express()
 
 const client = new baas.BaasClient('trymongo-red-kxrlp');
-const db = client.service('mongodb', 'mongodb1').db('app-kxrlp');
+const db = client.service('mongodb', 'TryMongoDBService').db('trymongo');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,7 +19,7 @@ app.use(function (req, res, next) {
   next();
 });
 // send all requests to index.html so browserHistory in React Router works
-//app.use('/api', routes)
+app.use('/api', routes)
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'index.html'));
 });

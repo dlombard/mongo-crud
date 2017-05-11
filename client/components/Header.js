@@ -8,7 +8,7 @@ class Header extends React.Component {
       <Grid>
         <Row>
           <Col md={10} mdOffset={1}>
-            <PageHeader>Try Now - BaaS</PageHeader>
+            <PageHeader>Try Now - <span style={style.stitch}>Stitch</span></PageHeader>
           </Col>
         </Row>
       </Grid>
@@ -16,5 +16,9 @@ class Header extends React.Component {
   }
 
 }
-
+const style = {
+  stitch:{
+    color: '#4ca84a'
+  }
+}
 export default Header;

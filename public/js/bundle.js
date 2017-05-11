@@ -17192,13 +17192,20 @@ var Header = function (_React$Component) {
       return _jsx(_reactBootstrap.Grid, {}, void 0, _jsx(_reactBootstrap.Row, {}, void 0, _jsx(_reactBootstrap.Col, {
         md: 10,
         mdOffset: 1
-      }, void 0, _jsx(_reactBootstrap.PageHeader, {}, void 0, 'Try Now - BaaS'))));
+      }, void 0, _jsx(_reactBootstrap.PageHeader, {}, void 0, 'Try Now - ', _jsx('span', {
+        style: style.stitch
+      }, void 0, 'Stitch')))));
     }
   }]);
 
   return Header;
 }(_react2.default.Component);
 
+var style = {
+  stitch: {
+    color: '#4ca84a'
+  }
+};
 exports.default = Header;
 
 /***/ }),
@@ -17317,7 +17324,8 @@ var Main = function (_React$Component) {
       }).then(function (json) {
         _this.setState({
           doc: json,
-          curl: 'curl -XPOST -H "Content-type: application/json" -d ' + JSON.stringify(payload) + ' ' + _this.state.url
+          curl: 'curl -XPOST -H "Content-type: application/json" -d \'' + JSON.stringify(payload) + '\' \'' + _this.state.url + '\'',
+          node: 'client.anonymousAuth().then(() => {\n    db.collection(\'trymongo\').insert({name: \'' + _this.state.name + '\', comment:\'' + _this.state.comment + '\'});\n  })'
         });
       }).catch(function (err) {
         console.error(err);
@@ -17329,7 +17337,8 @@ var Main = function (_React$Component) {
       name: 'name',
       comment: 'my comment',
       curl: '',
-      url: 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/591310a5e37e6b0bfbad7bb0?secret=SECRET'
+      url: 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/591310a5e37e6b0bfbad7bb0?secret=SECRET',
+      node: ''
     };
     return _this;
   }
@@ -17337,7 +17346,9 @@ var Main = function (_React$Component) {
   _createClass(Main, [{
     key: 'render',
     value: function render() {
-      return _jsx(_reactBootstrap.Grid, {}, void 0, _jsx(_reactBootstrap.Row, {}, void 0, _jsx(_reactBootstrap.Col, {
+      return _jsx(_reactBootstrap.Grid, {}, void 0, _jsx(_reactBootstrap.Row, {}, void 0, _jsx(_reactBootstrap.PageHeader, {}, void 0, _jsx('small', {
+        style: style.stitch
+      }, void 0, 'Insert'))), _jsx(_reactBootstrap.Row, {}, void 0, _jsx(_reactBootstrap.Col, {
         md: 6
       }, void 0, _jsx(_reactBootstrap.Form, {
         onSubmit: this.submit
@@ -17358,16 +17369,22 @@ var Main = function (_React$Component) {
         placeholder: 'Enter Name',
         id: 'comment'
       }), _jsx(_reactBootstrap.FormControl.Feedback, {})), _jsx(_reactBootstrap.Button, {
-        type: 'submit'
+        type: 'submit',
+        style: style.stitch
       }, void 0, 'Submit'))), _jsx(_reactBootstrap.Col, {
         md: 6
-      }, void 0, _jsx(_reactBootstrap.Row, {}, void 0, _jsx(_reactBootstrap.Col, {}, void 0, _jsx('h4', {}, void 0, 'Curl command generated'), _jsx(_reactBootstrap.Panel, {}, void 0, this.state.curl)), _jsx(_reactBootstrap.Col, {}, void 0, _jsx('h4', {}, void 0, 'Inserted Document'), _jsx('pre', {}, void 0, JSON.stringify(this.state.doc, null, 2)))))));
+      }, void 0, _jsx(_reactBootstrap.Row, {}, void 0, _jsx(_reactBootstrap.Col, {}, void 0, _jsx('h4', {}, void 0, 'Curl command generated'), _jsx(_reactBootstrap.Panel, {}, void 0, _jsx('p', {}, void 0, _jsx('strong', {}, void 0, 'curl:')), _jsx('pre', {}, void 0, _jsx('code', {}, void 0, this.state.curl)), _jsx('br', {}), _jsx('p', {}, void 0, _jsx('strong', {}, void 0, 'node command:')), _jsx('pre', {}, void 0, _jsx('code', {}, void 0, this.state.node)))), _jsx(_reactBootstrap.Col, {}, void 0, _jsx('h4', {}, void 0, 'Inserted Document'), _jsx('pre', {}, void 0, JSON.stringify(this.state.doc, null, 2)))))));
     }
   }]);
 
   return Main;
 }(_react2.default.Component);
 
+var style = {
+  stitch: {
+    color: '#4ca84a'
+  }
+};
 exports.default = Main;
 
 /***/ }),
