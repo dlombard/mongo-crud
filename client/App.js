@@ -7,6 +7,7 @@ import Header from './components/Header'
 import Main from './components/Main'
 import Find from './components/Find'
 import Update from './components/Update'
+import Delete from './components/Delete'
 render(
   (
     <Base>
@@ -14,5 +15,6 @@ render(
       <Main />
       <Find />
       <Update />
+      <Delete />
     </Base>
   ), document.getElementById('app'))
