@@ -17,7 +17,8 @@ class Find extends React.Component {
       doc: '',
       name: 'name',
       curl: '',
-      url: 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/591388da57e0fa0be0d88fb7?secret=SECRET'
+      url: 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/591388da57e0fa0be0d88fb7?secret=SECRET',
+      node: ''
     }
   }
 
@@ -51,7 +52,10 @@ class Find extends React.Component {
       then((json) => {
         this.setState({
           doc: json,
-          curl: `curl -XPOST -H "Content-type: application/json" -d '${JSON.stringify(payload)}' ${this.state.url}`
+          curl: `curl -XPOST -H "Content-type: application/json" -d '${JSON.stringify(payload)}' ${this.state.url}`,
+          node: `client.anonymousAuth().then(() => {
+    db.collection('trymongo').find({name: '${this.state.name}'});
+  })`
         })
       }).
       catch((err) => {
@@ -61,7 +65,7 @@ class Find extends React.Component {
   render() {
     return (
       <Grid>
-        <PageHeader>Find</PageHeader>
+        <PageHeader><small style={style.stitch}>Find</small></PageHeader>
         <Row>
           <Col md={6}>
             <Form onSubmit={this.submit}>
@@ -78,7 +82,7 @@ class Find extends React.Component {
                 />
                 <FormControl.Feedback />
               </FormGroup>
-              <Button type='submit'>
+              <Button type='submit' style={style.stitch}>
                 Submit
               </Button>
             </Form>
@@ -90,12 +94,24 @@ class Find extends React.Component {
                   Curl command generated
                   </h4>
                 <Panel>
-                  {this.state.curl}
+                  <p>
+                    <strong>curl:</strong>
+                  </p>
+                  <pre><code>
+                    {this.state.curl}
+                  </code></pre>
+                  <br />
+                  <p>
+                    <strong>node command:</strong>
+                  </p>
+                  <pre><code>
+                    {this.state.node}
+                  </code></pre>
                 </Panel>
               </Col>
               <Col>
                 <h4>
-                  Found Documents
+                  Documents Found
                   </h4>
 
                 <pre>
@@ -109,5 +125,9 @@ class Find extends React.Component {
     )
   }
 }
-
+const style = {
+  stitch: {
+    color: '#4ca84a'
+  }
+}
 export default Find; 

@@ -60,9 +60,7 @@ class Main extends React.Component {
   render() {
     return (
       <Grid>
-        <Row>
-          <PageHeader><small style={style.stitch}>Insert</small></PageHeader>
-        </Row>
+        <PageHeader><small style={style.stitch}>Insert</small></PageHeader>
         <Row>
           <Col md={6}>
             <Form onSubmit={this.submit}>
