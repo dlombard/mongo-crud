@@ -4,7 +4,6 @@ import { Grid, Col, Row, FieldGroup, Form, FormGroup, ControlLabel, FormControl,
 /*
 This component updates a comment by id.
 
-curl -XPOST -H "Content-type: application/json" -d '{"id":{"$oid":"591388d7c5557cf79d4b80d7"},"comment":"UnmistakableComment"}' 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/59138cd057e0fa0be0d8913c?secret=SECRET'
 */
 
 class Delete extends React.Component {
@@ -15,10 +14,7 @@ class Delete extends React.Component {
     this.state = {
       doc: '',
       id: 'id',
-      comment: 'updated comment',
-      curl: '',
-      url: 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/59139393e37e6b0bfbad84e9?secret=SECRET',
-      node: ''
+      url: 'http://localhost:8080/api/',
     }
   }
 
@@ -33,12 +29,12 @@ class Delete extends React.Component {
   submit = (e) => {
     e.preventDefault();
     const payload = {
-      id: { '$oid': this.state.id }
+      id: this.state.id
     };
 
 
     fetch(this.state.url, {
-      method: 'POST',
+      method: 'DELETE',
       mode: 'cors',
       redirect: 'follow',
       headers: {
@@ -52,10 +48,6 @@ class Delete extends React.Component {
       then((json) => {
         this.setState({
           doc: json,
-          curl: `curl -XPOST -H "Content-type: application/json" -d '${JSON.stringify(payload)}' ${this.state.url}`,
-          node: `client.anonymousAuth().then(() => {
-    db.collection('trymongo').deleteOne({id: {'$oid': '${this.state.id}'});
-  })`
         })
       }).
       catch((err) => {
@@ -91,29 +83,8 @@ class Delete extends React.Component {
             <Row>
               <Col>
                 <h4>
-                  Curl command generated
-                  </h4>
-                <Panel>
-                  <p>
-                    <strong>curl:</strong>
-                  </p>
-                  <pre><code>
-                    {this.state.curl}
-                  </code></pre>
-                  <br />
-                  <p>
-                    <strong>node command:</strong>
-                  </p>
-                  <pre><code>
-                    {this.state.node}
-                  </code></pre>
-                </Panel>
-              </Col>
-              <Col>
-                <h4>
                   Deleted Document
                   </h4>
-
                 <pre>
                   {JSON.stringify(this.state.doc, null, 2)}
                 </pre>

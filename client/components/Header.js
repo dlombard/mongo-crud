@@ -8,7 +8,7 @@ class Header extends React.Component {
       <Grid>
         <Row>
           <Col md={10} mdOffset={1}>
-            <PageHeader>Try Now - <span style={style.stitch}>Stitch</span></PageHeader>
+            <PageHeader>MongoDB - <span style={style.stitch}>CRUD</span></PageHeader>
           </Col>
         </Row>
       </Grid>

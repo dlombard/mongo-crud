@@ -16,15 +16,12 @@ class Find extends React.Component {
     this.state = {
       doc: '',
       name: 'name',
-      curl: '',
-      url: 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/591388da57e0fa0be0d88fb7?secret=SECRET',
-      node: ''
+      url: 'http://localhost:8080/api/',
     }
   }
 
   onChange = (e) => {
     e.preventDefault()
-    console.log(`EVENT ${e}`)
     let obj = {}
     obj[e.target.id] = e.target.value
     this.setState(obj)
@@ -32,30 +29,22 @@ class Find extends React.Component {
 
   submit = (e) => {
     e.preventDefault();
-    const payload = {
-      name: this.state.name,
-    };
+    let url = this.state.url + this.state.name
 
-
-    fetch(this.state.url, {
-      method: 'POST',
+    fetch(url, {
+      method: 'GET',
       mode: 'cors',
       redirect: 'follow',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(payload)
     }).then((res) => {
       return res.json()
     }).
       then((json) => {
         this.setState({
           doc: json,
-          curl: `curl -XPOST -H "Content-type: application/json" -d '${JSON.stringify(payload)}' ${this.state.url}`,
-          node: `client.anonymousAuth().then(() => {
-    db.collection('trymongo').find({name: '${this.state.name}'});
-  })`
         })
       }).
       catch((err) => {
@@ -91,29 +80,8 @@ class Find extends React.Component {
             <Row>
               <Col>
                 <h4>
-                  Curl command generated
-                  </h4>
-                <Panel>
-                  <p>
-                    <strong>curl:</strong>
-                  </p>
-                  <pre><code>
-                    {this.state.curl}
-                  </code></pre>
-                  <br />
-                  <p>
-                    <strong>node command:</strong>
-                  </p>
-                  <pre><code>
-                    {this.state.node}
-                  </code></pre>
-                </Panel>
-              </Col>
-              <Col>
-                <h4>
                   Documents Found
                   </h4>
-
                 <pre>
                   {JSON.stringify(this.state.doc, null, 2)}
                 </pre>

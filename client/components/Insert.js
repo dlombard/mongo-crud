@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Col, Row, FieldGroup, Form, FormGroup, ControlLabel, FormControl, Button, Panel, PageHeader } from 'react-bootstrap'
 
-class Main extends React.Component {
+class Insert extends React.Component {
 
   constructor(props) {
     super(props)
@@ -10,15 +10,13 @@ class Main extends React.Component {
       doc: '',
       name: 'name',
       comment: 'my comment',
-      curl: '',
-      url: 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/591310a5e37e6b0bfbad7bb0?secret=SECRET',
-      node: ''
+      url: 'http://localhost:8080/api',
+
     }
   }
 
   onChange = (e) => {
     e.preventDefault()
-    console.log(`EVENT ${e}`)
     let obj = {}
     obj[e.target.id] = e.target.value
     this.setState(obj)
@@ -46,11 +44,7 @@ class Main extends React.Component {
     }).
       then((json) => {
         this.setState({
-          doc: json,
-          curl: `curl -XPOST -H "Content-type: application/json" -d '${JSON.stringify(payload)}' '${this.state.url}'`,
-          node: `client.anonymousAuth().then(() => {
-    db.collection('trymongo').insert({name: '${this.state.name}', comment:'${this.state.comment}'});
-  })`
+          doc: json
         })
       }).
       catch((err) => {
@@ -99,29 +93,8 @@ class Main extends React.Component {
             <Row>
               <Col>
                 <h4>
-                  Curl command generated
+                  Response Document
                   </h4>
-                <Panel>
-                  <p>
-                    <strong>curl:</strong>
-                  </p>
-                  <pre><code>
-                    {this.state.curl}
-                  </code></pre>
-                  <br />
-                  <p>
-                    <strong>node command:</strong>
-                  </p>
-                  <pre><code>
-                    {this.state.node}
-                  </code></pre>
-                </Panel>
-              </Col>
-              <Col>
-                <h4>
-                  Inserted Document
-                  </h4>
-
                 <pre>
                   {JSON.stringify(this.state.doc, null, 2)}
                 </pre>
@@ -139,4 +112,4 @@ const style = {
     color: '#4ca84a'
   }
 }
-export default Main; 
+export default Insert; 

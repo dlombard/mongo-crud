@@ -15,10 +15,9 @@ class Update extends React.Component {
     this.state = {
       doc: '',
       id: 'id',
-      comment: 'updated comment',
-      curl: '',
-      url: 'https://baas-dev.10gen.cc/api/client/v1.0/app/trymongo-red-kxrlp/svc/TryMongoHTTP/incomingWebhook/59138cd057e0fa0be0d8913c?secret=SECRET',
-      node: ''
+      comment: '',
+      url: 'http://localhost:8080/api/',
+      name: ''
     }
   }
 
@@ -33,13 +32,14 @@ class Update extends React.Component {
   submit = (e) => {
     e.preventDefault();
     const payload = {
-      id: {'$oid': this.state.id},
+      id: this.state.id,
       comment: this.state.comment,
+      name: this.state.name
     };
 
 
     fetch(this.state.url, {
-      method: 'POST',
+      method: 'PATCH',
       mode: 'cors',
       redirect: 'follow',
       headers: {
@@ -53,10 +53,6 @@ class Update extends React.Component {
       then((json) => {
         this.setState({
           doc: json,
-          curl: `curl -XPOST -H "Content-type: application/json" -d '${JSON.stringify(payload)}' ${this.state.url}`,
-          node: `client.anonymousAuth().then(() => {
-    db.collection('trymongo').update({id: {'$oid': '${this.state.id}'}, {comment:'${this.state.comment}'});
-  })`
         })
       }).
       catch((err) => {
@@ -86,6 +82,19 @@ class Update extends React.Component {
               <FormGroup
                 controlId="formBasicText"
               >
+                <ControlLabel>Enter Name</ControlLabel>
+                <FormControl
+                  type="text"
+                  value={this.state.name}
+                  onChange={this.onChange}
+                  placeholder="Enter name"
+                  id='name'
+                />
+                <FormControl.Feedback />
+              </FormGroup>
+              <FormGroup
+                controlId="formBasicText"
+              >
                 <ControlLabel>Enter comment</ControlLabel>
                 <FormControl
                   type="text"
@@ -103,26 +112,6 @@ class Update extends React.Component {
           </Col>
           <Col md={6}>
             <Row>
-              <Col>
-                <h4>
-                  Curl command generated
-                  </h4>
-                <Panel>
-                  <p>
-                    <strong>curl:</strong>
-                  </p>
-                  <pre><code>
-                    {this.state.curl}
-                  </code></pre>
-                  <br />
-                  <p>
-                    <strong>node command:</strong>
-                  </p>
-                  <pre><code>
-                    {this.state.node}
-                  </code></pre>
-                </Panel>
-              </Col>
               <Col>
                 <h4>
                   Documents Found
