@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Col, Row, FieldGroup, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button, Panel, PageHeader } from 'react-bootstrap'
-
+import { VARS } from '../variables'
 /*
 This component finds by name.
 
@@ -16,7 +16,7 @@ class Find extends React.Component {
     this.state = {
       doc: '',
       name: 'name',
-      url: 'http://localhost:8080/api/',
+      url: VARS.api,
     }
   }
 
@@ -29,7 +29,7 @@ class Find extends React.Component {
 
   submit = (e) => {
     e.preventDefault();
-    let url = this.state.url + this.state.name
+    let url = `${this.state.url}/${this.state.name}`
 
     fetch(url, {
       method: 'GET',

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Col, Row, FieldGroup, Form, FormGroup, ControlLabel, FormControl, HelpBlock, Button, Panel, PageHeader } from 'react-bootstrap'
-
+import {VARS} from '../variables'
 /*
 This component updates a comment by id.
 
@@ -14,7 +14,7 @@ class Delete extends React.Component {
     this.state = {
       doc: '',
       id: 'id',
-      url: 'http://localhost:8080/api/',
+      url: VARS.api,
     }
   }
 

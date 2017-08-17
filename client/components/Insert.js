@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Col, Row, FieldGroup, Form, FormGroup, ControlLabel, FormControl, Button, Panel, PageHeader } from 'react-bootstrap'
-
+import {VARS} from '../variables'
 class Insert extends React.Component {
 
   constructor(props) {
@@ -10,7 +10,7 @@ class Insert extends React.Component {
       doc: '',
       name: 'name',
       comment: 'my comment',
-      url: 'http://localhost:8080/api',
+      url: VARS.api,
 
     }
   }
