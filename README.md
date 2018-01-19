@@ -26,4 +26,4 @@ npm start
 
 ### **To use**
 
-Open your browser and navigate to http://localhost:<PORT>. Enter the values in the fields then press submit.
+Open your browser and navigate to `http://localhost:<PORT>`. Enter the values in the fields then press submit.
