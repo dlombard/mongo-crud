@@ -1,3 +1,3 @@
 export const VARS = {
-  api: 'http://localhost:8081/api'
+  api: 'http://localhost:8080/api'
 }
